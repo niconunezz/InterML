@@ -1,3 +1,5 @@
+from InterML import inter
+from typing import Tuple
 # My way of keeping track of values gradients
 class Value():
   def __init__(self,val:float,_children=(),_op=''):
@@ -84,6 +86,9 @@ class Tensor():
     assert isinstance(val,list),'val must be a list'
     self.val = val
   
+  def __getitem__(self,index):
+    return self.val[index]
+  
   def __add__(self,other):
     assert isinstance(other,Tensor), 'other must be a tensor'
     assert self.ndim() == other.ndim(), 'tensor must have the same number of dimensions'
@@ -94,7 +99,7 @@ class Tensor():
       else:
           result = [x + y for x, y in zip(matrix1, matrix2)]
       return result
-    return add_matrices(self.val,other.val)
+    return Tensor(add_matrices(self.val,other.val))
 
   def __mul__(self,other):
     
@@ -106,9 +111,17 @@ class Tensor():
       else:
           result = [x*y for x, y in zip(matrix1, matrix2)]
       return result
-    return mul_matrices(self.val,other.val)
+    return Tensor(mul_matrices(self.val,other.val))
 
-
+  def backward(self):
+    
+    def activate_all(tensor):
+      if isinstance(tensor[0], list):
+          return [activate_all(row) for row in tensor]
+      else:
+          for i in tensor:
+              i.backward()
+    activate_all(self)
 
   def dim(self):
     def get_dimensions_lengths(self):
@@ -129,3 +142,4 @@ class Tensor():
 
   def __repr__(self):
     return 'Tensor(' + str(self.val) + ')'
+
