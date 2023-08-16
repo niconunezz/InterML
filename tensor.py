@@ -36,6 +36,8 @@ class Tensor():
           result = [x*y for x, y in zip(matrix1, matrix2)]
       return result
     return Tensor(mul_matrices(self.val,other.val))
+  
+  
 
   def backward(self):
     
@@ -46,8 +48,9 @@ class Tensor():
           for i in tensor:
               i.backward()
     activate_all(self)
+  
 
-  def dim(self):
+  def size(self):
     def get_dimensions_lengths(self):
       dimensions_lengths = []
 
