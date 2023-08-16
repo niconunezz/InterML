@@ -16,11 +16,14 @@ class Value():
 
 
     def _backward():
-      self.grad = 1.0 * out.grad
-      other.grad = 1.0 * out.grad
+      self.grad += 1.0 * out.grad
+      other.grad += 1.0 * out.grad
     out._backward = _backward
 
     return out
+  
+  def __radd__(self, other):
+    return self + other
 
   def __mul__(self, other):
     other = other if isinstance(other, Value) else Value(other)
@@ -32,22 +35,28 @@ class Value():
     out._backward = _backward
 
     return out
+  
+  def __rmul__(self, other):
+    return self * other
 
   def __sub__(self,other):
     other = other if isinstance(other, Value) else Value(other)
     out = Value(self.val - other.val, (self, other), '-')
 
     def _backward():
-      self.grad = -1.0 * out.grad
-      other.grad = -1.0 * out.grad
+      self.grad += -1.0 * out.grad
+      other.grad += -1.0 * out.grad
     out._backward = _backward
 
     return out
 
+  def __rsub__(self,other):
+    return self - other
+
   def reLU(self):
     out = Value(max(0,self.val), (self,), 'ReLU')
     def _backward():
-      self.grad = float(out.val > 0) * out.grad
+      self.grad += float(out.val > 0) * out.grad
     out._backward = _backward
     return out
 
@@ -58,7 +67,7 @@ class Value():
     out = Value(numerator/denominator, (self,), 'tanh')
 
     def _backward():
-      self.grad = 1.0 - out.val ** 2
+      self.grad += 1.0 - out.val ** 2
     out._backward = _backward
     return out
 

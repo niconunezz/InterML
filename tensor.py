@@ -65,7 +65,7 @@ class Tensor():
     return get_dimensions_lengths(self.val)
   
   def ndim(self):
-    return len(self.dim())
+    return len(self.size())
 
   def __repr__(self):
     return 'Tensor(' + str(self.val) + ')'

@@ -30,39 +30,45 @@ def find2dim(matrix):
           
           return False
 
-matrix_a=[[[ 29,  87],
-         [109, 106]],
-
-        [[ 40,  98],
-         [107,  27]],
-          
-        [[ 40,  98],
-         [107,  27]]]
-matrix_b = [[[37, 28],
-         [31, 13]],
-
-        [[30,  8],
-         [ 8, 37]],
-            
-        [[30,  8],
-         [ 8, 37]]]   
-
 matrices = []
-def all_together(matrix_a, matrix_b):
-  find2dim(matrix_a)
-  find2dim(matrix_b)
-  n = len(matrices)//2
+def all_together(tensor_a:Tensor, tensor_b:Tensor):
+    andim = tensor_a.ndim()
+    bndim = tensor_a.ndim()
+    matrix_a = tensor_a.val
+    matrix_b = tensor_b.val
 
-  a = matrices[:n]
-  b = matrices[n:]
+    find2dim(matrix_a)
+    find2dim(matrix_b)
+    n = len(matrices)//2
+    
+    a = matrices[:n]
+    b = matrices[n:]
+    if andim == 4:
+      newa = []
+      newb = []
+      fdim = tensor_a.size()[0]
+      n = len(a)//fdim
+      j,k=0,n
+      for i in range(fdim):
+        newa.append(a[j:k])
+        newb.append(b[j:k])
+        j,k = k,k+n
+      first_step = []
+      out = []
+      for fda,fdb in zip(newa,newb):
+        for x,y in zip(fda,fdb):
+          first_step.append(matrix_multiplication(x,y))
+        out.append(first_step)
+        first_step = []
   
-  
-  out= []
-  for m1,m2 in zip(a,b):
-    out.append(matrix_multiplication(m1,m2))
+    else:
+      out= []
+      for m1,m2 in zip(a,b):
+        out.append(matrix_multiplication(m1,m2))
 
-  new = Tensor(out)
+    new = Tensor(out)
 
-  return new
+    return new
 
-print(all_together(matrix_a, matrix_b).size())
+
+

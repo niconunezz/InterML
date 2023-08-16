@@ -1,5 +1,5 @@
 # just like a fast tensor creator
-
+from value import Value
 from typing import Tuple
 class InterML():
 
@@ -23,4 +23,5 @@ class InterML():
 
 
 inter = InterML()
+
 
