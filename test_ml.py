@@ -46,13 +46,17 @@ class TestClass:
         result = [[v.val for v in row] for row in result.val]
         assert result == expected
     
-    def test_matmul(self):
-        
+    def test_matmul4dim(self):
         result = self.matrix_a @ self.matrix_b
+        
         expected = Tensor([[[[27, 34], [45, 58], [63, 82]], [[37, 46], [40, 52], [63, 82]]]])
         expected_values = [[[[v.val for v in inner_row] for inner_row in row] for row in matrix] for matrix in expected.val]
         result_values = [[[[v.val for v in inner_row] for inner_row in row] for row in matrix] for matrix in result.val]
         assert expected_values == result_values
+
+
+
+
     
 
 
