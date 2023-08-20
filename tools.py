@@ -1,4 +1,6 @@
 from tensor import Tensor
+from typing import List
+from value import Value
 
 def matrix_multiplication(matrix_a, matrix_b):
     def multiply_recursive(matrix1, matrix2):
@@ -71,4 +73,39 @@ def all_together(tensor_a:Tensor, tensor_b:Tensor):
     return new
 
 
+def flow(tens: List):
+    if isinstance(tens[0], list):
+        for i in range(len(tens)):
+            flow(tens[i])
+    else:
+        for i in range(len(tens)):
+            tens[i] = tens[i] if isinstance(tens[i], Value) else Value(tens[i])
+
+
+matrices = []
+matrix_a = [
+[    [[1, 2, 4],
+    [3, 4, 6],
+    [5, 6, 8]],
+
+    [[1, 2, 6],
+    [3, 4, 5],
+    [5, 6,8]]]
+]
+
+matrix_b = [
+[    [[1, 2],
+    [3, 4],
+    [5, 6]],
+
+    [[1, 2],
+    [3, 4],
+    [5, 6]]]
+]
+a = Tensor(matrix_a)
+b = Tensor(matrix_b)
+
+
+print(a.size()) 
+print(all_together(a,b))
 
