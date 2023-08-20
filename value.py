@@ -5,9 +5,12 @@ class Value():
     self.grad = 0
     self._prev = set(_children)
     self._backward = lambda: None
+  
+  def type(self):
+    return 'Value'
 
   def __repr__(self):
-    return 'Value(' + str(self.val) + ')'
+    return 'Value('+ str(self.val) + ')'
 
   def __add__(self, other):
 
