@@ -101,5 +101,4 @@ b = Tensor(matrix_b)
 
 print('mat_mul of a and b',all_together(a,b))
 
-flow(matrix_a)
 print(matrix_a)

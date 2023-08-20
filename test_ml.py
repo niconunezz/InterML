@@ -12,12 +12,28 @@ class TestClass:
         result = [[v.val for v in row] for row in result.val]
         assert result == expected
     
+    def test_radd(self):
+        result = [[1, 2, 3], [4, 5, 6]] + self.m2
+        expected = Tensor([[2, 7, 9], [8, 8, 12]])
+        expected=[[v.val for v in row] for row in expected.val]
+        result = [[v.val for v in row] for row in result.val]
+        assert result == expected
+
+    
     def test_mul(self):
         result = self.m1 * self.m2
         expected = Tensor([[1, 10, 18], [16, 15, 36]])
         expected=[[v.val for v in row] for row in expected.val]
         result = [[v.val for v in row] for row in result.val]
         assert result == expected
+    
+    def test_rmul(self):
+        result = [[1, 2, 3], [4, 5, 6]] * self.m2
+        expected = Tensor([[1, 10, 18], [16, 15, 36]])
+        expected=[[v.val for v in row] for row in expected.val]
+        result = [[v.val for v in row] for row in result.val]
+        assert result == expected
+
     
     def test_flow(self):
         m1 = Tensor([[1, 2, 3], [4, 5, 6]])

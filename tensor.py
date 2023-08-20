@@ -25,7 +25,8 @@ class Tensor():
     return self.val[index]
   
   def __add__(self,other):
-    assert isinstance(other,Tensor), 'other must be a tensor'
+    assert isinstance(other,Tensor) or isinstance(other,list)
+    other = other if isinstance(other, Tensor) else Tensor(other)
     assert self.ndim() == other.ndim(), 'tensor must have the same number of dimensions'
 
     def add_matrices(matrix1, matrix2):
@@ -35,11 +36,15 @@ class Tensor():
           result = [x + y for x, y in zip(matrix1, matrix2)]
       return result
     return Tensor(add_matrices(self.val,other.val))
+  
+  def __radd__(self,other):
+    return self + other
 
   def __mul__(self,other):
-    
-    assert isinstance(other,Tensor), 'other must be a tensor'
+    assert isinstance(other,Tensor) or isinstance(other,list)
+    other = other if isinstance(other, Tensor) else Tensor(other)
     assert self.ndim() == other.ndim(), 'tensor must have the same number of dimensions'
+    
     def mul_matrices(matrix1, matrix2):
       if isinstance(matrix1[0], list):
           result = [mul_matrices(row1, row2) for row1, row2 in zip(matrix1, matrix2)]
@@ -48,6 +53,10 @@ class Tensor():
       return result
     return Tensor(mul_matrices(self.val,other.val))
   
+  def __rmul__(self,other):
+     return self * other
+
+
   
 
   def backward(self):
