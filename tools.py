@@ -73,15 +73,6 @@ def all_together(tensor_a:Tensor, tensor_b:Tensor):
     return new
 
 
-def flow(tens: List):
-    if isinstance(tens[0], list):
-        for i in range(len(tens)):
-            flow(tens[i])
-    else:
-        for i in range(len(tens)):
-            tens[i] = tens[i] if isinstance(tens[i], Value) else Value(tens[i])
-
-
 matrices = []
 matrix_a = [
 [    [[1, 2, 4],
@@ -102,10 +93,13 @@ matrix_b = [
     [3, 4],
     [5, 6]]]
 ]
+
+
 a = Tensor(matrix_a)
 b = Tensor(matrix_b)
 
 
-print(a.size()) 
-print(all_together(a,b))
+print('mat_mul of a and b',all_together(a,b))
 
+flow(matrix_a)
+print(matrix_a)

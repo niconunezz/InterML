@@ -1,14 +1,25 @@
 from InterML import inter
 from typing import Tuple
 from value import Value
-
+from typing import List
 
 # a tensor implementation, used for matrix multiplication and that type of stuff
 
 class Tensor():
   def __init__(self,val):
     assert isinstance(val,list),'val must be a list'
+    self.flow(val)
     self.val = val
+  
+  # converts everithing in the tensor in values if they are not already
+  def flow(self,tens: List):
+    if isinstance(tens[0], list):
+        for i in range(len(tens)):
+            self.flow(tens[i])
+    else:
+        for i in range(len(tens)):
+            tens[i] = tens[i] if isinstance(tens[i], Value) else Value(tens[i])
+
   
   def __getitem__(self,index):
     return self.val[index]
