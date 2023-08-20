@@ -2,6 +2,7 @@ from InterML import inter
 from typing import Tuple
 from value import Value
 from typing import List
+from tools import all_together
 
 # a tensor implementation, used for matrix multiplication and that type of stuff
 
@@ -44,7 +45,7 @@ class Tensor():
     assert isinstance(other,Tensor) or isinstance(other,list)
     other = other if isinstance(other, Tensor) else Tensor(other)
     assert self.ndim() == other.ndim(), 'tensor must have the same number of dimensions'
-    
+
     def mul_matrices(matrix1, matrix2):
       if isinstance(matrix1[0], list):
           result = [mul_matrices(row1, row2) for row1, row2 in zip(matrix1, matrix2)]
@@ -56,9 +57,17 @@ class Tensor():
   def __rmul__(self,other):
      return self * other
 
-
+  def __matmul__(self,other):
+     assert isinstance(other,Tensor) or isinstance(other,list)
+     other = other if isinstance(other, Tensor) else Tensor(other)
+     
+     assert self.size()[-1] == other.size()[-2], 'dimensions must match'
+     global matrices
+     matrices = []
+     out = all_together(self,other)
+     return Tensor(out)
   
-
+  
   def backward(self):
     
     def activate_all(tensor):

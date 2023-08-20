@@ -1,7 +1,3 @@
-from tensor import Tensor
-from typing import List
-from value import Value
-
 def matrix_multiplication(matrix_a, matrix_b):
     def multiply_recursive(matrix1, matrix2):
         if isinstance(matrix1[0], list):
@@ -33,7 +29,7 @@ def find2dim(matrix):
           return False
 
 matrices = []
-def all_together(tensor_a:Tensor, tensor_b:Tensor):
+def all_together(tensor_a, tensor_b):
     andim = tensor_a.ndim()
     bndim = tensor_a.ndim()
     matrix_a = tensor_a.val
@@ -68,37 +64,9 @@ def all_together(tensor_a:Tensor, tensor_b:Tensor):
       for m1,m2 in zip(a,b):
         out.append(matrix_multiplication(m1,m2))
 
-    new = Tensor(out)
+    new = out
 
     return new
 
 
-matrices = []
-matrix_a = [
-[    [[1, 2, 4],
-    [3, 4, 6],
-    [5, 6, 8]],
 
-    [[1, 2, 6],
-    [3, 4, 5],
-    [5, 6,8]]]
-]
-
-matrix_b = [
-[    [[1, 2],
-    [3, 4],
-    [5, 6]],
-
-    [[1, 2],
-    [3, 4],
-    [5, 6]]]
-]
-
-
-a = Tensor(matrix_a)
-b = Tensor(matrix_b)
-
-
-print('mat_mul of a and b',all_together(a,b))
-
-print(matrix_a)
