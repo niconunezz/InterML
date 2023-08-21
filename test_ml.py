@@ -108,7 +108,17 @@ class TestClass:
         expected = Tensor([[1, 2, 0], [4, 5, 0]])
         expected_values = [[v.val for v in row] for row in expected.val]
         result_values = [[v.val for v in row] for row in example.val]
-        assert result_values == expected_values, 'ReLU did not work'
+        assert result_values == expected_values, 'something went wrong with relu'
+    
+    
+    def test_reLU(self):
+
+        example = Tensor([[1, 2,-3], [4, 5,-6]])
+        example.tanh()
+        expected = Tensor([[0.7615941559557649, 0.964027580075817, -0.9950547536867306], [0.9993292997390669, 0.999909204262595, -0.9999877116507956]])
+        expected_values = [[v.val for v in row] for row in expected.val]
+        result_values = [[v.val for v in row] for row in example.val]
+        assert result_values == expected_values, 'something went wrong with tanh'
 
     
 
