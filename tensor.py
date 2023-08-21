@@ -36,6 +36,14 @@ class Tensor():
       return all
     return funct(self.val)
   
+  def mean(self):
+    total_num= 1
+    for i in range(self.ndim()):
+      total_num *= self.size()[i]
+
+    return self.sum() *  (total_num**-1)
+  
+  
   def __add__(self,other):
     assert isinstance(other,Tensor) or isinstance(other,list)
     other = other if isinstance(other, Tensor) else Tensor(other)
