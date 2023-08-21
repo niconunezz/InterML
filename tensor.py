@@ -58,9 +58,7 @@ class Tensor():
      return self * other
 
   def __matmul__(self,other):
-     assert isinstance(other,Tensor) or isinstance(other,list)
-     other = other if isinstance(other, Tensor) else Tensor(other)
-     
+     assert isinstance(other,Tensor), 'other must be a tensor'
      assert self.size()[-1] == other.size()[-2], 'dimensions must match'
      global matrices
      matrices = []

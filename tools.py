@@ -64,9 +64,8 @@ def all_together(tensor_a, tensor_b):
       for m1,m2 in zip(a,b):
         out.append(matrix_multiplication(m1,m2))
 
-    new = out
-
-    return new
+  
+    return out
 
 
 
