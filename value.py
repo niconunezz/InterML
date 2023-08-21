@@ -55,6 +55,18 @@ class Value():
 
   def __rsub__(self,other):
     return self - other
+  
+  def __pow__(self,other):
+    assert isinstance(other, (int, float)), "only supporting int/float powers for now"
+    
+    out = Value(self.val ** other, (self,), f'**{other}')
+
+    def _backward():
+      self.grad += (other * self.val ** (other - 1)) * out.grad
+      
+    out._backward = _backward
+
+    return out
 
   def reLU(self):
     out = Value(max(0,self.val), (self,), 'ReLU')
