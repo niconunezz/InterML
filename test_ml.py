@@ -68,7 +68,16 @@ class TestClass:
         result = [[v.val for v in row] for row in result.val]
         assert result == expected
     
-   
+    def test_matmul2dim(self):
+        result = Tensor([[61,21,23],[4,5,7]]) @ Tensor([[1,2],[3,4],[5,6]])
+        print(result.val)
+        expected = Tensor([[239,344],[54,70]])
+        
+        expected_values = [[v.val for v in matrix] for matrix in expected.val]
+        result_values = [[v.val for v in matrix] for matrix in result.val]
+        
+        assert result_values == expected_values, "La multiplicación de matrices no es la esperada"
+    
     def test_matmul3dim(self):
         result = Tensor([[[1, 2, 3], [4, 5, 6]]]) @ Tensor([[[1, 2], [3, 4], [5, 6]]])
         expected = Tensor([[[22, 28], [49, 64]]])

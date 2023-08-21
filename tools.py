@@ -70,7 +70,9 @@ def all_together(tensor_a, tensor_b):
       for m1,m2 in zip(a,b):
         out.append(matrix_multiplication(m1,m2))
 
-  
+    if andim == 2:
+       return out[0]
+    
     return out
 
 
