@@ -76,6 +76,13 @@ class Tensor():
      out = all_together(self,other)
      return Tensor(out)
   
+  def __pow__(self,other):
+    assert isinstance(other, int), "only supporting int powers for now"
+    incremental = self
+    for _ in range(other-1):
+      incremental =  incremental * self
+    return incremental
+  
   def reLU(self):
     def funct(tens):
       if isinstance(tens[0], list):
