@@ -43,6 +43,17 @@ class Tensor():
 
     return self.sum() *  (total_num**-1)
   
+  def var(self):
+    mean = self.mean()
+    mean_tensor = inter.fill_tensor(mean,self.size())
+    ind_var = self - mean_tensor
+    
+    sq_ind_var = ind_var ** 2
+    
+    mean_sq_ind_var = sq_ind_var.mean()
+    
+    return mean_sq_ind_var
+  
   
   def __add__(self,other):
     assert isinstance(other,Tensor) or isinstance(other,list)
