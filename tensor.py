@@ -25,6 +25,17 @@ class Tensor():
   def __getitem__(self,index):
     return self.val[index]
   
+  def sum(self):
+    def funct(tens):
+      all = 0
+      for row in tens:
+        if isinstance(row, list):
+            all += funct(row)
+        else:
+            all += row
+      return all
+    return funct(self.val)
+  
   def __add__(self,other):
     assert isinstance(other,Tensor) or isinstance(other,list)
     other = other if isinstance(other, Tensor) else Tensor(other)
