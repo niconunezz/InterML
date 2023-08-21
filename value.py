@@ -1,4 +1,4 @@
-# My way of keeping track of values gradients
+# keeping track of values gradients
 class Value():
   def __init__(self,val:float,_children=(),_op=''):
     self.val = val

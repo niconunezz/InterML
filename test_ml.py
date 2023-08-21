@@ -76,7 +76,7 @@ class TestClass:
         expected_values = [[v.val for v in matrix] for matrix in expected.val]
         result_values = [[v.val for v in matrix] for matrix in result.val]
         
-        assert result_values == expected_values, "La multiplicación de matrices no es la esperada"
+        assert result_values == expected_values, "matmul is not correct"
     
     def test_matmul3dim(self):
         result = Tensor([[[1, 2, 3], [4, 5, 6]]]) @ Tensor([[[1, 2], [3, 4], [5, 6]]])
@@ -85,7 +85,7 @@ class TestClass:
         expected_values = [[[v.val for v in row] for row in matrix] for matrix in expected.val]
         result_values = [[[v.val for v in row] for row in matrix] for matrix in result.val]
         
-        assert result_values == expected_values, "La multiplicación de matrices no es la esperada"
+        assert result_values == expected_values, "matmul is not correct"
     
 
 
@@ -99,8 +99,16 @@ class TestClass:
         print(expected.size())
         expected_values = [[[[v.val for v in inner_row] for inner_row in row] for row in matrix] for matrix in expected.val]
         result_values = [[[[v.val for v in inner_row] for inner_row in row] for row in matrix] for matrix in result.val]
-        assert result_values == expected_values
+        assert result_values == expected_values, 'matmul is not correct'
 
+    def test_reLU(self):
+
+        example = Tensor([[1, 2,-3], [4, 5,-6]])
+        example.reLU()
+        expected = Tensor([[1, 2, 0], [4, 5, 0]])
+        expected_values = [[v.val for v in row] for row in expected.val]
+        result_values = [[v.val for v in row] for row in example.val]
+        assert result_values == expected_values, 'ReLU did not work'
 
     
 

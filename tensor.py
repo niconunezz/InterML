@@ -65,6 +65,15 @@ class Tensor():
      out = all_together(self,other)
      return Tensor(out)
   
+  def reLU(self):
+    def funct(tens):
+      if isinstance(tens[0], list):
+          for i in range(len(tens)):
+              funct(tens[i])
+      if isinstance(tens[0], Value):
+          for i in range(len(tens)):
+              tens[i] = tens[i].reLU()
+    return funct(self.val)
   
   def backward(self):
     
