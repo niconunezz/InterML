@@ -28,15 +28,20 @@ def find2dim(matrix):
           
           return False
 
-matrices = []
+
 def all_together(tensor_a, tensor_b):
+    global matrices
+    matrices = []
     andim = tensor_a.ndim()
-    bndim = tensor_a.ndim()
+  
     matrix_a = tensor_a.val
     matrix_b = tensor_b.val
-
+    
     find2dim(matrix_a)
     find2dim(matrix_b)
+
+    
+    assert len(matrices) % 2 == 0
     n = len(matrices)//2
     
     a = matrices[:n]
@@ -51,6 +56,7 @@ def all_together(tensor_a, tensor_b):
         newa.append(a[j:k])
         newb.append(b[j:k])
         j,k = k,k+n
+      
       first_step = []
       out = []
       for fda,fdb in zip(newa,newb):
